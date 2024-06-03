@@ -1,7 +1,3 @@
-replace:
-
-Certainly! Here's a README file explaining the purpose and usage of the provided Terraform setup with GitHub Actions for destroying resources.
-
 ---
 
 # Terraform Destroy Example

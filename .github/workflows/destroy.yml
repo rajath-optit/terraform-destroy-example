@@ -1,0 +1,35 @@
+name: Destroy Terraform Resources
+
+on:
+  workflow_dispatch:
+    inputs:
+      application_name:
+        description: 'Application Name'
+        required: true
+        default: ''
+      aws_resource:
+        description: 'AWS Resource'
+        required: true
+        default: ''
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.0
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Destroy
+      env:
+        TF_VAR_application_name: ${{ github.event.inputs.application_name }}
+        TF_VAR_aws_resource: ${{ github.event.inputs.aws_resource }}
+      run: terraform destroy -auto-approve
